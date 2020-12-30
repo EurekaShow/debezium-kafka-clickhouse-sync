@@ -48,18 +48,18 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.otter</groupId>
-            <artifactId>canal.client</artifactId>
-            <!--<version>1.0.24</version>-->
-            <version>1.1.4</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.otter</groupId>-->
+<!--            <artifactId>canal.client</artifactId>-->
+<!--            &lt;!&ndash;<version>1.0.24</version>&ndash;&gt;-->
+<!--            <version>1.1.4</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>spring</artifactId>-->
+<!--                    <groupId>org.springframework</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -175,7 +175,7 @@
         <profile>
             <id>dev</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+
                 <property>
                     <name>env</name>
                     <value>!release</value>
@@ -191,7 +191,7 @@
                             <descriptors>
                                 <descriptor>${basedir}/src/main/assembly/dev.xml</descriptor>
                             </descriptors>
-                            <finalName>canal</finalName>
+                            <finalName>sync</finalName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
                     </plugin>
@@ -203,6 +203,7 @@
         <profile>
             <id>release</id>
             <activation>
+                <activeByDefault>true</activeByDefault>
                 <property>
                     <name>env</name>
                     <value>release</value>

@@ -3,13 +3,15 @@ package com.eureka.sync.listener;
 import com.eureka.sync.event.UpdateDmlEvent;
 import com.eureka.sync.service.ClickhouseService;
 import com.jayway.jsonpath.JsonPath;
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author eureka
@@ -27,7 +29,7 @@ public class UpdateDmlListener extends AbstractDmlListener<UpdateDmlEvent> {
     protected void doSync(String database, String table, String rowData) {
 
         Optional<String> idColumn = Optional.ofNullable(getFirstPK(rowData));
-        if (!idColumn.isPresent() || StringUtils.isBlank(idColumn.get())) {
+        if (!idColumn.isPresent() || Strings.isBlank(idColumn.get())) {
             logger.warn("update从column中找不到主键,database=" + database + ",table=" + table);
             return;
         }

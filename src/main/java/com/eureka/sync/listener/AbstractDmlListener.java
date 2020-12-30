@@ -2,9 +2,10 @@ package com.eureka.sync.listener;
 
 import com.eureka.sync.service.MappingService;
 import com.eureka.sync.event.DmlEvent;
+import com.google.common.base.Strings;
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,7 +92,7 @@ public abstract class AbstractDmlListener<EVENT extends DmlEvent> implements App
                     Map fields = (Map) it.next();
 
                     String key = fields.get("field").toString();
-                    if (key == null || StringUtils.isEmpty(key)) {
+                    if (key == null || Strings.isNullOrEmpty(key)) {
                         continue;
                     }
                     keys.append(",").append(key);

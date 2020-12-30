@@ -6,14 +6,16 @@ import com.eureka.sync.event.TruncateDmlEvent;
 import com.eureka.sync.event.UpdateDmlEvent;
 import com.eureka.sync.listener.AbstractDmlListener;
 import com.jayway.jsonpath.JsonPath;
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.logging.log4j.util.Strings;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
@@ -21,18 +23,18 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedHashMap;
 
 @Component
+@DependsOn(value = "kafkaTopicsConfiguration")
 public class KafkaClient  implements ApplicationContextAware {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractDmlListener.class);
     private ApplicationContext applicationContext;
 
-    @KafkaListener(topics = {"cosmo_lady_fmds_dev.DDL","cosmo_lady_fmds_dev.cosmo_lady_fmds_dev.allocation_provision_second_092701",
-            "cosmo_lady_fmds_dev.cosmo_lady_fmds_dev.allocation_provision_second_092701_copy1"})
+    @KafkaListener(topics =  {"#{'${topics}'.split(',')}"})
     public void listen(ConsumerRecord<?, ?> record) throws Exception {
 
         try {
 
-            if(record.value() == null || StringUtils.isEmpty(record.value().toString())){
+            if(record.value() == null || Strings.isEmpty(record.value().toString())){
 //                ack.acknowledge();
                 return;
             }

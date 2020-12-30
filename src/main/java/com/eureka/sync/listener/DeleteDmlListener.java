@@ -3,7 +3,8 @@ package com.eureka.sync.listener;
 import com.eureka.sync.event.DeleteDmlEvent;
 import com.eureka.sync.service.ClickhouseService;
 import com.jayway.jsonpath.JsonPath;
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,7 @@ public class DeleteDmlListener extends AbstractDmlListener<DeleteDmlEvent> {
 
         Optional<String> idColumn = Optional.ofNullable(getFirstPK(rowData));
 
-        if (!idColumn.isPresent() || StringUtils.isBlank(idColumn.get())) {
+        if (!idColumn.isPresent() || Strings.isBlank(idColumn.get())) {
             logger.warn("DELETE 从column中找不到主键,database=" + database + ",table=" + table);
             return;
         }

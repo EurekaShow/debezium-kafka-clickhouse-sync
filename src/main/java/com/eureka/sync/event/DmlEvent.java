@@ -1,6 +1,5 @@
 package com.eureka.sync.event;
 
-import com.alibaba.otter.canal.protocol.CanalEntry.Entry;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationEvent;
 

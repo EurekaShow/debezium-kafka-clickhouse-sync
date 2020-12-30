@@ -1,2 +1,0 @@
-# canal-rabbitmq-clickhouse-sync
- 
